@@ -7,3 +7,4 @@ client-data/
 extensions/
 *.log
 *.jsonl
+workspace/

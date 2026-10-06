@@ -1,0 +1,9 @@
+{
+  "workbench.startupEditor": "none",
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.disableLoginPrompt": true,
+  "claudeCode.useTerminal": false,
+  "claudeCode.hideOnboarding": true,
+  "editor.accessibilitySupport": "on",
+  "extensions.autoUpdate": false
+}

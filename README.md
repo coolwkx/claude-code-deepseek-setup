@@ -62,7 +62,7 @@ VS Code 主程序复用原 D 盘安装。Claude Code 独立可执行文件仍在
 
 密钥采用 Windows SecureString / DPAPI 加密保存，不写入启动脚本文本，不需要在聊天里提供。该加密文件绑定当前 Windows 用户和本机，不能作为可移植配置直接复制到另一台电脑。
 
-本仓库只保存总结说明，不包含密钥、加密凭据文件、账户余额、个人身份资料、聊天记录或扩展原始代码。它是一次配置过程的记录，不是可以直接部署的完整客户端安装包。
+本仓库保存总结、启动脚本、设置模板和本地汉化工具，不包含密钥、加密凭据文件、账户余额、个人身份资料、聊天记录或扩展原始代码。软件本体需要从官方渠道安装。
 
 ## 汉化与维护边界
 
@@ -80,3 +80,27 @@ VS Code 主程序复用原 D 盘安装。Claude Code 独立可执行文件仍在
 - [Claude Code 的 VS Code 图形扩展](https://code.claude.com/docs/en/vs-code)
 - [DeepSeek 接入 Claude Code](https://api-docs.deepseek.com/quick_start/agent_integrations/claude_code/)
 - [DeepSeek 官方平台](https://platform.deepseek.com/)
+
+## 配置文件使用方法
+
+仓库新增了可复用文件，路径相对于仓库根目录解析，可放在 D 盘使用。以下脚本面向 Windows PowerShell；VS Code 的 `code.cmd` 和独立 Claude Code 需要已安装并可找到。本次记录固定了扩展及语言包版本，语言包适用于 VS Code 1.104；其他编辑器版本应改用匹配的语言包。
+
+1. 在仓库根目录运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-Client.ps1`，建立目录、安装扩展并创建桌面快捷方式。
+2. 运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Save-ApiKey.ps1`，在本机输入自己的 DeepSeek API 密钥，按当前 Windows 用户和本机加密保存。
+3. 关闭这个专用客户端，运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Apply-Chinese.ps1`，应用可选的常用界面汉化。
+4. 双击桌面快捷方式，或双击 `Start-Client.vbs` 打开图形客户端；`Start-DeepSeek.cmd` 是终端入口。
+5. 恢复原界面：关闭客户端后运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\Apply-Chinese.ps1 -Restore`。
+
+`Prepare-Client.ps1` 不覆盖已有编辑器设置；`Apply-Chinese.ps1` 每次从原始备份生成汉化结果，重复运行不会反复叠加。仅支持记录的扩展版本，未在其他机器和所有编辑器版本上验证。仓库提供的工具不会上传或内置任何 API 密钥。
+
+| 文件 | 作用 |
+| --- | --- |
+| `Start-Client.ps1` / `Start-Client.vbs` | 图形客户端启动入口 |
+| `Start-DeepSeek.ps1` / `Start-DeepSeek.cmd` | 终端启动入口 |
+| `Prepare-Client.ps1` | 初始化配置、安装指定扩展、创建桌面快捷方式 |
+| `Save-ApiKey.ps1` | 在本机加密保存用户自己输入的密钥 |
+| `Apply-Chinese.ps1` | 应用或恢复常用界面汉化 |
+| `templates/settings.json` / `templates/argv.json` | 无凭据的编辑器设置模板 |
+| `templates/translations.zh-CN.json` / `templates/ui-zh-CN.js` | 汉化文字及动态界面翻译补充 |
+
+运行时生成的 `config`、`client-data`、`extensions` 和 `workspace` 不应提交。Windows 加密凭据不能直接迁移到另一台电脑；应在新电脑重新保存密钥。
