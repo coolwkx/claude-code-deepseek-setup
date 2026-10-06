@@ -1,0 +1,9 @@
+*.clixml
+*.key
+.env
+.env.*
+config/
+client-data/
+extensions/
+*.log
+*.jsonl
