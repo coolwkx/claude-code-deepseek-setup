@@ -1,0 +1,58 @@
+{
+  "name": "deepseek-token-monitor",
+  "displayName": "DeepSeek Token 用量",
+  "version": "0.1.0",
+  "publisher": "local-tools",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "deepseekTokens.show",
+        "title": "DeepSeek：查看 Token 用量"
+      },
+      {
+        "command": "deepseekTokens.balance",
+        "title": "DeepSeek：查看账户余额"
+      },
+      {
+        "command": "deepseekTokens.refreshBalance",
+        "title": "DeepSeek：立即刷新余额"
+      }
+    ],
+    "configuration": {
+      "title": "DeepSeek 用量与余额",
+      "properties": {
+        "deepseekMonitor.lowBalanceCNY": {
+          "type": "number",
+          "default": 10,
+          "minimum": 0,
+          "description": "人民币低余额提醒阈值，设为0关闭。"
+        },
+        "deepseekMonitor.lowBalanceUSD": {
+          "type": "number",
+          "default": 2,
+          "minimum": 0,
+          "description": "美元低余额提醒阈值，设为0关闭。"
+        },
+        "deepseekMonitor.dropWarningCNY": {
+          "type": "number",
+          "default": 5,
+          "minimum": 0,
+          "description": "人民币10分钟余额下降提醒阈值，设为0关闭。"
+        },
+        "deepseekMonitor.dropWarningUSD": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0,
+          "description": "美元10分钟余额下降提醒阈值，设为0关闭。"
+        }
+      }
+    }
+  }
+}

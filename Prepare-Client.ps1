@@ -14,6 +14,7 @@ foreach ($extension in @('anthropic.claude-code@2.1.291', 'MS-CEINTL.vscode-lang
     & $code @arguments --install-extension $extension --force
     if ($LASTEXITCODE -ne 0) { throw "Extension installation failed: $extension" }
 }
+& (Join-Path $PSScriptRoot 'Install-Monitor.ps1')
 $shell = New-Object -ComObject WScript.Shell
 $shortcut = $shell.CreateShortcut((Join-Path ([Environment]::GetFolderPath('Desktop')) 'Claude Code + DeepSeek.lnk'))
 $shortcut.TargetPath = Join-Path $env:SystemRoot 'System32\wscript.exe'
